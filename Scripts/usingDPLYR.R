@@ -9,7 +9,7 @@ json_data <- fromJSON(paste(readLines(json_file), collapse=""))
 # get list of all resources:
 print(json_data$resources$name)
 # use function extract season to extract the 10 seasons from the json_data
-source("code/extractSeason.R")
+source("Scripts/extractSeason.R")
 ## LOOKING FOR MORE ELEGANT CODE TO DO THIS PART
 # season 2018/2019
 season_1819 <- extractSeason(23)
@@ -68,16 +68,14 @@ hist(allSeason$FTAG, col = "blue", xlab = "Away Goals", main = "Away Goals from 
 hist(allGoal, col = "green", xlab = "Total Goals", main = "Total Goals from 2009 to 2020")
 mtext("Distribution of Goals Scored in the Premier League", outer = TRUE)
 
-source("code/distTeam.R")
-
 ## 3. Home and Away data frames grouped by team
 
 # home and away dataframes 2018/2019
-homedata_1819 <- group_by(season_1819, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
-awaydata_1819 <- group_by(season_1819, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
-homedata_1819 <- mutate(homedata_1819, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-awaydata_1819 <- mutate(awaydata_1819, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-totalGoal_1819 <- c(HomeGoals = sum(homedata_1819$GoalScored), AwayGoals = sum(homedata_1819$GoalAgainst))
+homedata1819 <- group_by(season201819, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
+awaydata1819 <- group_by(season201819, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
+homedata1819 <- mutate(homedata1819, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+awaydata1819 <- mutate(awaydata1819, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+totalGoal1819 <- c(HomeGoals = sum(homedata1819$GoalScored), AwayGoals = sum(homedata1819$GoalAgainst))
 
 # home and away dataframes 2017/2018
 homedata1718 <- group_by(season1718, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
@@ -96,8 +94,8 @@ totalGoal1617 <- c(HomeGoals = sum(homedata1617$GoalScored), AwayGoals = sum(hom
 ## 4. Applying model to the data frames
 
 # use functions predict and actualResults to look at the effectiveness of the model
-source("code/predict.R")
-source("code/actualResults.R")
+source("Scripts/predict.R")
+source("Scripts/actualResults.R")
 # inspect liverpool
 predict("Liverpool")
 actualResults("Liverpool")
@@ -111,11 +109,10 @@ actualResults("Crystal Palace")
 # however, an element of randomness and distribution, as well as playing style analysis is
 # needed for teams like wolves and crystal palace
 
-## exploraty graphs
-# What teams are common of the 2018/2019 / 2017/2018 / 2016/2017 seasons, hence weren't promoted or 
-# relegated during these seasons
-intersect(teams_1819, intersect(teams_1718, teams_1617))
-# 14 teams
+# exploraty graphs
+
+
+
 
 
 
