@@ -43,9 +43,9 @@ season_0910 <- extractSeason(32)
 teams_0910 <- sort(unique(season_0910$HomeTeam))
 
 # dump season data frames
-dump(list = list(season_1819, season_1718, season_1617, season_1516, season_1415, 
-     season_1314, season_1213, season_1112, season_1011, season_0910), 
-     "seasondata.R")
+# dump(list = list(season_1819, season_1718, season_1617, season_1516, season_1415, 
+#      season_1314, season_1213, season_1112, season_1011, season_0910), 
+#      "seasondata.R")
 source("seasondata.R")
 ## vector of all season and team data frame names
 years <- c("0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617", "1718", "1819")
@@ -71,42 +71,42 @@ mtext("Distribution of Goals Scored in the Premier League", outer = TRUE)
 source("code/distTeam.R")
 
 ## 3. Home and Away data frames grouped by team
-
+library(dplyr)
 # home and away dataframes 2018/2019
 homedata_1819 <- group_by(season_1819, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
 awaydata_1819 <- group_by(season_1819, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
-homedata_1819 <- mutate(homedata_1819, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-awaydata_1819 <- mutate(awaydata_1819, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+homedata_1819 <- mutate(homedata_1819, Season = "1819", HomeorAway = "home", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+awaydata_1819 <- mutate(awaydata_1819, Season = "1819", HomeorAway = "away", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
 totalGoal_1819 <- c(HomeGoals = sum(homedata_1819$GoalScored), AwayGoals = sum(homedata_1819$GoalAgainst))
 
 # home and away dataframes 2017/2018
-homedata1718 <- group_by(season1718, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
-awaydata1718 <- group_by(season1718, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
-homedata1718 <- mutate(homedata1718, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-awaydata1718 <- mutate(awaydata1718, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-totalGoal1718 <- c(HomeGoals = sum(homedata1718$GoalScored), AwayGoals = sum(homedata1718$GoalAgainst))
+homedata_1718 <- group_by(season_1718, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
+awaydata_1718 <- group_by(season_1718, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
+homedata_1718 <- mutate(homedata_1718, Season = "1718", HomeorAway = "home", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+awaydata_1718 <- mutate(awaydata_1718, Season = "1718", HomeorAway = "away", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+totalGoal1718 <- c(HomeGoals = sum(homedata_1718$GoalScored), AwayGoals = sum(homedata_1718$GoalAgainst))
 
 # home and away dataframes 2016/2017
-homedata1617 <- group_by(season1617, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
-awaydata1617 <- group_by(season1617, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
-homedata1617 <- mutate(homedata1617, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-awaydata1617 <- mutate(awaydata1617, GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-totalGoal1617 <- c(HomeGoals = sum(homedata1617$GoalScored), AwayGoals = sum(homedata1617$GoalAgainst))
+homedata_1617 <- group_by(season_1617, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
+awaydata_1617 <- group_by(season_1617, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
+homedata_1617 <- mutate(homedata_1617, Season = "1617", HomeorAway = "home", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+awaydata_1617 <- mutate(awaydata_1617, Season = "1617", HomeorAway = "away", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
+totalGoal1617 <- c(HomeGoals = sum(homedata_1617$GoalScored), AwayGoals = sum(homedata_1617$GoalAgainst))
 
 ## 4. Applying model to the data frames
 
 # use functions predict and actualResults to look at the effectiveness of the model
 source("code/predict.R")
-source("code/actualResults.R")
+source("code/teamResult.R")
 # inspect liverpool
 predict("Liverpool")
-actualResults("Liverpool")
+teamResult("Liverpool")
 # inspect Wolves
 predict("Wolves")
 # inspect crystal palace
-actualResults("Wolves")
+teamResult("Wolves")
 predict("Crystal Palace")
-actualResults("Crystal Palace")
+teamResult("Crystal Palace")
 # by inspecting the model we can see it works well for more predictable teams like liverpool
 # however, an element of randomness and distribution, as well as playing style analysis is
 # needed for teams like wolves and crystal palace
@@ -114,9 +114,15 @@ actualResults("Crystal Palace")
 ## exploraty graphs
 # What teams are common of the 2018/2019 / 2017/2018 / 2016/2017 seasons, hence weren't promoted or 
 # relegated during these seasons
-intersect(teams_1819, intersect(teams_1718, teams_1617))
-# 14 teams
-
+teams_1619 <- intersect(teams_1819, intersect(teams_1718, teams_1617))
+teams_1619 <- as.factor(teams_1619)
+# plot a linear model using lattice
+goalPlot <- xyplot(GoalScored ~ Season | HomeTeam, panel = function(x, y, ...) {
+panel.xyplot(x, y, ...)
+panel.lmline(x, y, col = 2)
+})
+print(goalPlot)
+# we must subset this dataframe for teams_1619 and cobine away dataframes
 
 
 
