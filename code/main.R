@@ -2,51 +2,47 @@
 
 ## 1. Downloading and reading the data into R
 
-## Script to read in data from datahub on English Premier League results
-library("jsonlite")
-json_file <- 'https://datahub.io/sports-data/english-premier-league/datapackage.json'
-json_data <- fromJSON(paste(readLines(json_file), collapse=""))
-# get list of all resources:
-print(json_data$resources$name)
-# use function extract season to extract the 10 seasons from the json_data
-source("code/extractSeason.R")
-## LOOKING FOR MORE ELEGANT CODE TO DO THIS PART
-# season 2018/2019
-season_1819 <- extractSeason(23)
-teams_1819 <- sort(unique(season_1819$HomeTeam))
-# season 2017/2018
-season_1718 <- extractSeason(24)
-teams_1718 <- sort(unique(season_1718$HomeTeam))
-# season 2016/2017
-season_1617 <- extractSeason(25)
-teams_1617 <- sort(unique(season_1617$HomeTeam))
-# season 2015/2016
-season_1516 <- extractSeason(26)
-teams_1516 <- sort(unique(season_1516$HomeTeam))
-# season 2014/2015
-season_1415 <- extractSeason(27)
-teams_1415 <- sort(unique(season_1415$HomeTeam))
-# season 2013/2014
-season_1314 <- extractSeason(28)
-teams_1314 <- sort(unique(season_1314$HomeTeam))
-# season 2012/2013
-season_1213 <- extractSeason(29)
-teams_1213 <- sort(unique(season_1213$HomeTeam))
-# season 2011/2012
-season_1112 <- extractSeason(30)
-teams_1112 <- sort(unique(season_1112$HomeTeam))
-# season 2010/2011
-season_1011 <- extractSeason(31)
-teams_1011 <- sort(unique(season_1011$HomeTeam))
-# season 2009/2010
-season_0910 <- extractSeason(32)
-teams_0910 <- sort(unique(season_0910$HomeTeam))
+# ## Script to read in data from datahub on English Premier League results
+# library("jsonlite")
+# json_file <- 'https://datahub.io/sports-data/english-premier-league/datapackage.json'
+# json_data <- fromJSON(paste(readLines(json_file), collapse=""))
+# # get list of all resources:
+# print(json_data$resources$name)
+# # use function extract season to extract the 10 seasons from the json_data
+# source("code/extractSeason.R")
+# ## LOOKING FOR MORE ELEGANT CODE TO DO THIS PART
+# # extract seasons
+# season_1819 <- extractSeason(23)
+# season_1718 <- extractSeason(24)
+# season_1617 <- extractSeason(25)
+# season_1516 <- extractSeason(26)
+# season_1415 <- extractSeason(27)
+# season_1314 <- extractSeason(28)
+# season_1213 <- extractSeason(29)
+# season_1112 <- extractSeason(30)
+# season_1011 <- extractSeason(31)
+# season_0910 <- extractSeason(32)
 
 # dump season data frames
 # dump(list = list(season_1819, season_1718, season_1617, season_1516, season_1415, 
 #      season_1314, season_1213, season_1112, season_1011, season_0910), 
-#      "seasondata.R")
-source("seasondata.R")
+#      "data/seasondata.R")
+# Don't know why this doesn't work: dump(team_list, file = "data/teamdata.R")
+
+# Source season data and create team vectors for each season
+source("data/seasondata.R")
+season_1415 <- season_1415[1:380,]
+teams_1819 <- sort(unique(season_1819$HomeTeam))
+teams_1718 <- sort(unique(season_1718$HomeTeam))
+teams_1617 <- sort(unique(season_1617$HomeTeam))
+teams_1516 <- sort(unique(season_1516$HomeTeam))
+teams_1415 <- sort(unique(season_1415$HomeTeam))
+teams_1314 <- sort(unique(season_1314$HomeTeam))
+teams_1213 <- sort(unique(season_1213$HomeTeam))
+teams_1112 <- sort(unique(season_1112$HomeTeam))
+teams_1011 <- sort(unique(season_1011$HomeTeam))
+teams_0910 <- sort(unique(season_0910$HomeTeam))
+
 ## vector of all season and team data frame names
 years <- c("0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617", "1718", "1819")
 season_vector <- sapply(years, function(x) {paste0("season_", x)})
@@ -114,16 +110,22 @@ teamResult("Crystal Palace")
 ## exploraty graphs
 # What teams are common of the 2018/2019 / 2017/2018 / 2016/2017 seasons, hence weren't promoted or 
 # relegated during these seasons
-teams_1619 <- intersect(teams_1819, intersect(teams_1718, teams_1617))
-teams_1619 <- as.factor(teams_1619)
+teams_1619 <- intersect(teams_1819, intersect(teams_1718, intersect(teams_1617, teams_1516)))
+homedata_1619 <- rbind(homedata_1819, homedata_1718, homedata_1617)
+homedata_1619 <- transform(homedata_1619, 
+                           Season = as.factor(Season), HomeorAway = as.factor(HomeorAway))
+homedata_1619 <- filter(homedata_1619, HomeTeam %in% teams_1619)
+
 # plot a linear model using lattice
-goalPlot <- xyplot(GoalScored ~ Season | HomeTeam, panel = function(x, y, ...) {
+attach(homedata_1619)
+goalPlot <- xyplot(GoalScored ~ Season | HomeTeam, layout = c(14,1), panel = function(x, y, ...) {
 panel.xyplot(x, y, ...)
 panel.lmline(x, y, col = 2)
 })
+detach(homedata_1619)
 print(goalPlot)
-# we must subset this dataframe for teams_1619 and cobine away dataframes
-
+# plot shows how a linear model over the past 3 seasons would lead to unaccurate 
+# predictions 
 
 
 
