@@ -66,28 +66,22 @@ mtext("Distribution of Goals Scored in the Premier League", outer = TRUE)
 
 source("code/distTeam.R")
 
-## 3. Home and Away data frames grouped by team
-library(dplyr)
-# home and away dataframes 2018/2019
-homedata_1819 <- group_by(season_1819, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
-awaydata_1819 <- group_by(season_1819, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
-homedata_1819 <- mutate(homedata_1819, Season = "1819", HomeorAway = "home", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-awaydata_1819 <- mutate(awaydata_1819, Season = "1819", HomeorAway = "away", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-totalGoal_1819 <- c(HomeGoals = sum(homedata_1819$GoalScored), AwayGoals = sum(homedata_1819$GoalAgainst))
-
-# home and away dataframes 2017/2018
-homedata_1718 <- group_by(season_1718, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
-awaydata_1718 <- group_by(season_1718, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
-homedata_1718 <- mutate(homedata_1718, Season = "1718", HomeorAway = "home", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-awaydata_1718 <- mutate(awaydata_1718, Season = "1718", HomeorAway = "away", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-totalGoal1718 <- c(HomeGoals = sum(homedata_1718$GoalScored), AwayGoals = sum(homedata_1718$GoalAgainst))
-
-# home and away dataframes 2016/2017
-homedata_1617 <- group_by(season_1617, HomeTeam) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
-awaydata_1617 <- group_by(season_1617, AwayTeam) %>% summarise(GoalScored=sum(FTAG), GoalAgainst=sum(FTHG))
-homedata_1617 <- mutate(homedata_1617, Season = "1617", HomeorAway = "home", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-awaydata_1617 <- mutate(awaydata_1617, Season = "1617", HomeorAway = "away", GoalperGame = GoalScored / 19, ConcedeperGame = GoalAgainst / 19)
-totalGoal1617 <- c(HomeGoals = sum(homedata_1617$GoalScored), AwayGoals = sum(homedata_1617$GoalAgainst))
+## 3. Creating summary dataframes detailing the number of goals scored and conceded home and away
+## grouped by teams
+source("code/summary_df.R")
+## Note: this variation will much up the predict function which will need adapted to this new format
+summary_data <- rbind(
+  summary_df(season = season_1819, year = "1819"),
+  summary_df(season = season_1718, year = "1718"),
+  summary_df(season = season_1617, year = "1617"),
+  summary_df(season = season_1516, year = "1516"),
+  summary_df(season = season_1415, year = "1415"),
+  summary_df(season = season_1314, year = "1314"),
+  summary_df(season = season_1213, year = "1213"),
+  summary_df(season = season_1112, year = "1112"),
+  summary_df(season = season_1011, year = "1011"),
+  summary_df(season = season_0910, year = "0910")
+)
 
 ## 4. Applying model to the data frames
 
