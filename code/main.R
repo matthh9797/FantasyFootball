@@ -32,14 +32,26 @@ hist(result_tbl$FTAG, col = "blue", xlab = "Away Goals", main = "Away Goals from
 hist(rbind(result_tbl$FTHG, result_tbl$FTAG), col = "green", xlab = "Total Goals", main = "Total Goals from 2009 to 2020")
 mtext("Distribution of Goals Scored in the Premier League", outer = TRUE)
 # ggplot implementation for individual teams
-g <- ggplot(data = filter(subset(result_tbl, HomeTeam == "Man City"), Season %in% c("1617", "1718", "1819")),
+library(dplyr)
+library(ggplot2)
+g <- ggplot(data = filter(subset(result_tbl, HomeTeam == "Man City"), Season %in% c("1718", "1819")),
 mapping = aes(FTHG))
-g + geom_bar(fill = "blue", alpha = .4, col = "red") + labs(title = "Man City Home Goal Distribution 2016 - 2019")
+g + geom_bar(fill = "skyblue3", col = "white") + 
+  labs(x = "Goals Scored", title = "Man City Home Goal Distribution 2017 - 2019")
 
-g <- ggplot(data = filter(subset(result_tbl, AwayTeam == "Man City"), Season %in% c("1617", "1718", "1819")),
+g <- ggplot(data = filter(subset(result_tbl, AwayTeam == "Man City"), Season %in% c("1718", "1819")),
             mapping = aes(FTAG))
-g + geom_bar(fill = "blue", alpha = .4, col = "red") + labs(title = "Man City Away Goal Distribution 2016 - 2019")
+g + geom_bar(fill = "skyblue3", col = "white") + 
+  labs(x = "Goals Scored", title = "Man City Away Goal Distribution 2017 - 2019")
 source("code/distTeam.R")
+
+# Spliting the seasons by part (e.g start end middle)
+v1 <- c(rep(1, 130), rep(2, 120), rep(3, 130))
+v2 <- rep(v1, 10)
+cut <- factor(v2, levels = c(1,2,3), labels = c("Start", "Middle", "End"))
+result_tbl <- transform(result_tbl, SeasonCut = cut)
+str
+home <- group_by(result_tbl, HomeTeam, Season, SeasonCut) %>% summarise(GoalScored=sum(FTHG), GoalAgainst=sum(FTAG))
 
 ## 4. Applying model to the data frames
 
@@ -97,8 +109,10 @@ print(goalPlot_1319)
 library(ggplot2)
 g <- ggplot(data = goalSummary_1319, aes(as.numeric(Season), GoalScored, color = HomeorAway))
 goalPlot_1319 <- g + geom_point() + 
-  geom_smooth(method = "lm", se = FALSE) + facet_grid(. ~ Team) +
+  geom_smooth(method = "lm", se = FALSE) + facet_grid(. ~ Team)
 print(goalPlot_1319)
+
+# 6. Fixture Data Model
 
 
 
