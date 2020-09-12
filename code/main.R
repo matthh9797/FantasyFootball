@@ -1,23 +1,47 @@
 ## Fantasy Football Project
 
 ## 1. Downloading and reading the data into R
-# The heavy work has been done in intialDataDownload.R to download and create the 3 main data objects,
-# these have been saved as R objects in the data folder and can now be loaded into the global environment
+## New data download: (https://www.kaggle.com/irkaal/english-premier-league-results)
 
-# a. result_tbl is a dataframe containing all of the resuts from the 2009/2010 premier league season to 
-# the 2018/2019 season 
-load("data/result_tbl.R")
-# b. team_list is a list object containing factor vectors which contain the teams for each Premier League
-# season
-load("data/team_list.R")
-# c. goalSummary is a dataframe containing a summary of the overall goals scored and conceded by each team
-# in the Premier league by season
-load("data/goalSummary.R")
-
-## vector of all season and team data frame names
-years <- c("0910", "1011", "1112", "1213", "1314", "1415", "1516", "1617", "1718", "1819")
-season_vector <- sapply(years, function(x) {paste0("season_", x)})
-team_vector <- sapply(years, function(x) {paste0("team_", x)})
+# # a. results is a dataframe containing all of the resuts from the 2005/2006 premier league season to 
+# # the 2019/2020 season 
+# results <- read.csv("data/results1993-2020/results.csv")
+# # results 2005 - 2020 (15 seasons)
+# results <- transform(results, Date = as.Date(Date))
+# library(dplyr)
+# results <- filter(results, Date > "2005-08-01")
+# save(results, file = "data/results.R")
+# 
+# # b. goalSummary is a dataframe containing a summary of the overall goals scored and conceded by each team
+# # in the Premier league by season
+# source("code/summaryGoals.R")
+# summaryGoals <- summaryGoals(results)
+# save(summaryGoals, file = "data/summaryGoals.R")
+#
+# # c. team_list is a list object containing factor vectors which contain the teams for each Premier League
+# # season
+# team_list <- list(
+#   "teams_0506" = droplevels(filter(summaryGoals, Season == "2005-06")$Team[1:20]),
+#   "teams_0607" = droplevels(filter(summaryGoals, Season == "2006-07")$Team[1:20]),
+#   "teams_0708" = droplevels(filter(summaryGoals, Season == "2007-08")$Team[1:20]),  
+#   "teams_0809" = droplevels(filter(summaryGoals, Season == "2008-09")$Team[1:20]),
+#   "teams_0910" = droplevels(filter(summaryGoals, Season == "2009-10")$Team[1:20]),
+#   "teams_1011" = droplevels(filter(summaryGoals, Season == "2010-11")$Team[1:20]),
+#   "teams_1112" = droplevels(filter(summaryGoals, Season == "2011-12")$Team[1:20]),
+#   "teams_1213" = droplevels(filter(summaryGoals, Season == "2012-13")$Team[1:20]),  
+#   "teams_1314" = droplevels(filter(summaryGoals, Season == "2013-14")$Team[1:20]),
+#   "teams_1415" = droplevels(filter(summaryGoals, Season == "2014-15")$Team[1:20]),
+#   "teams_1516" = droplevels(filter(summaryGoals, Season == "2015-16")$Team[1:20]),  
+#   "teams_1617" = droplevels(filter(summaryGoals, Season == "2016-17")$Team[1:20]),
+#   "teams_1718" = droplevels(filter(summaryGoals, Season == "2017-18")$Team[1:20]),
+#   "teams_1819" = droplevels(filter(summaryGoals, Season == "2018-19")$Team[1:20]),
+#   "teams_1920" = droplevels(filter(summaryGoals, Season == "2019-20")$Team[1:20])
+# )
+# save(team_list, file = "data/team_list.R")
+# Source the data objects from memory
+source("data/results.R")
+source("data/summaryGoals.R")
+source("data/team_list.R")
 
 ## 2. Insight into the distribution of goals scored in the Premier League
 
@@ -113,7 +137,26 @@ goalPlot_1319 <- g + geom_point() +
 print(goalPlot_1319)
 
 # 6. Fixture Data Model
+fixtures <- read.csv("data/fixtures/epl-2020-GMTStandardTime.csv")
+head(fixtures)
+str(fixtures)
 
+goalSummary1415 <- filter(goalSummary, Season == "1415")predictHome1415 <- t(sapply(teams1415, function(x) sapply(teams1415, function(y) predict(x, y, GoalMatrix1415)[[1]])))
+predictAway1415 <- sapply(teams1415, function(x) sapply(teams1415, function(y) predict(x, y, GoalMatrix1415)[[2]]))
+
+GoalMatrix1415 <- matrix(ncol = 4, nrow = 20)
+rownames(GoalMatrix1415) <- goalSummary1415$Team
+colnames(GoalMatrix1415) <- c("HomeGoals", "AwayGoals", "HomeConcede", "AwayConcede")
+teams1415 <- rownames(GoalMatrix1415)
+GoalMatrix1415[,1] <- goalSummary1415$GoalScored[1:20]
+GoalMatrix1415[,2] <- goalSummary1415$GoalScored[21:40]
+GoalMatrix1415[,3] <- goalSummary1415$GoalAgainst[1:20]
+GoalMatrix1415[,4] <- goalSummary1415$GoalAgainst[21:40]
+diag(predictHome1415) <- 0
+diag(predictAway1415) <- 0
+predict1415 <- cbind(predictHome1415, predictAway1415)
+colNames <- c(sapply(teams1415, function(x) paste0(x, ".Home")), sapply(teams1415, function(x) paste0(x, ".Away")))
+fixtures <- transform(fixtures, Predict.Home = NA, Predict.Away = NA)
 
 
 
