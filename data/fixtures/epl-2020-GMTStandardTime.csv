@@ -1,74 +1,74 @@
 Round Number,Date,Location,Home Team,Away Team,Result
-1,12/09/2020 12:30,Craven Cottage,Fulham,Arsenal,
+1,12/09/2020 12:30,Craven Cottage,Fulham,Arsenal,0 - 3
 1,12/09/2020 15:00,Turf Moor,Burnley,Man Utd,
 1,12/09/2020 15:00,Etihad Stadium,Man City,Aston Villa,
-1,12/09/2020 15:00,Selhurst Park,Crystal Palace,Southampton,
-1,12/09/2020 15:00,London Stadium,West Ham,Newcastle,
-1,12/09/2020 17:30,Anfield,Liverpool,Leeds,
-1,13/09/2020 14:00,The Hawthorns,West Brom,Leicester,
-1,13/09/2020 16:30,Tottenham Hotspur Stadium,Spurs,Everton,
-1,14/09/2020 20:00,Amex Stadium,Brighton,Chelsea,
-1,14/09/2020 20:00,Bramall Lane,Sheffield Utd,Wolves,
-2,19/09/2020 12:30,Goodison Park,Everton,West Brom,
-2,19/09/2020 15:00,Elland Road,Leeds,Fulham,
-2,19/09/2020 15:00,King Power Stadium,Leicester,Burnley,
-2,19/09/2020 17:30,Old Trafford,Man Utd,Crystal Palace,
-2,20/09/2020 12:00,St. Mary's Stadium,Southampton,Spurs,
-2,20/09/2020 14:00,Emirates Stadium,Arsenal,West Ham,
-2,20/09/2020 14:00,Villa Park,Aston Villa,Sheffield Utd,
-2,20/09/2020 14:00,St. James' Park,Newcastle,Brighton,
-2,20/09/2020 16:30,Stamford Bridge,Chelsea,Liverpool,
-2,21/09/2020 20:00,Molineux Stadium,Wolves,Man City,
-3,26/09/2020 12:30,Amex Stadium,Brighton,Man Utd,
-3,26/09/2020 15:00,Turf Moor,Burnley,Southampton,
-3,26/09/2020 15:00,Selhurst Park,Crystal Palace,Everton,
-3,26/09/2020 15:00,Tottenham Hotspur Stadium,Spurs,Newcastle,
-3,26/09/2020 15:00,London Stadium,West Ham,Wolves,
-3,26/09/2020 17:30,The Hawthorns,West Brom,Chelsea,
-3,27/09/2020 12:00,Bramall Lane,Sheffield Utd,Leeds,
-3,27/09/2020 14:00,Craven Cottage,Fulham,Aston Villa,
-3,27/09/2020 16:30,Etihad Stadium,Man City,Leicester,
-3,28/09/2020 20:00,Anfield,Liverpool,Arsenal,
-4,03/10/2020 15:00,Emirates Stadium,Arsenal,Sheffield Utd,
-4,03/10/2020 15:00,Villa Park,Aston Villa,Liverpool,
-4,03/10/2020 15:00,Stamford Bridge,Chelsea,Crystal Palace,
-4,03/10/2020 15:00,Goodison Park,Everton,Brighton,
-4,03/10/2020 15:00,Elland Road,Leeds,Man City,
-4,03/10/2020 15:00,King Power Stadium,Leicester,West Ham,
-4,03/10/2020 15:00,Old Trafford,Man Utd,Spurs,
-4,03/10/2020 15:00,St. James' Park,Newcastle,Burnley,
-4,03/10/2020 15:00,St. Mary's Stadium,Southampton,West Brom,
-4,03/10/2020 15:00,Molineux Stadium,Wolves,Fulham,
+1,12/09/2020 15:00,Selhurst Park,Crystal Palace,Southampton,1 - 0
+1,12/09/2020 17:30,Anfield,Liverpool,Leeds,4 - 3
+1,12/09/2020 20:00,London Stadium,West Ham,Newcastle,0 - 2
+1,13/09/2020 14:00,The Hawthorns,West Brom,Leicester,0 - 3
+1,13/09/2020 16:30,Tottenham Hotspur Stadium,Spurs,Everton,0 - 1
+1,14/09/2020 18:00,Bramall Lane,Sheffield Utd,Wolves,0 - 2
+1,14/09/2020 20:15,Amex Stadium,Brighton,Chelsea,1 - 3
+2,19/09/2020 12:30,Goodison Park,Everton,West Brom,5 - 2
+2,19/09/2020 15:00,Elland Road,Leeds,Fulham,4 - 3
+2,19/09/2020 17:30,Old Trafford,Man Utd,Crystal Palace,1 - 3
+2,19/09/2020 20:00,Emirates Stadium,Arsenal,West Ham,2 - 1
+2,20/09/2020 12:00,St. Mary's Stadium,Southampton,Spurs,2 - 5
+2,20/09/2020 14:00,St. James' Park,Newcastle,Brighton,0 - 3
+2,20/09/2020 16:30,Stamford Bridge,Chelsea,Liverpool,0 - 2
+2,20/09/2020 19:00,King Power Stadium,Leicester,Burnley,4 - 2
+2,21/09/2020 18:00,Villa Park,Aston Villa,Sheffield Utd,1 - 0
+2,21/09/2020 20:15,Molineux Stadium,Wolves,Man City,1 - 3
+3,26/09/2020 12:30,Amex Stadium,Brighton,Man Utd,2 - 3
+3,26/09/2020 15:00,Selhurst Park,Crystal Palace,Everton,1 - 2
+3,26/09/2020 17:30,The Hawthorns,West Brom,Chelsea,3 - 3
+3,26/09/2020 20:00,Turf Moor,Burnley,Southampton,0 - 1
+3,27/09/2020 12:00,Bramall Lane,Sheffield Utd,Leeds,0 - 1
+3,27/09/2020 14:00,Tottenham Hotspur Stadium,Spurs,Newcastle,1 - 1
+3,27/09/2020 16:30,Etihad Stadium,Man City,Leicester,2 - 5
+3,27/09/2020 19:00,London Stadium,West Ham,Wolves,4 - 0
+3,28/09/2020 17:45,Craven Cottage,Fulham,Aston Villa,0 - 3
+3,28/09/2020 20:00,Anfield,Liverpool,Arsenal,3 - 1
+4,03/10/2020 12:30,Stamford Bridge,Chelsea,Crystal Palace,4 - 0
+4,03/10/2020 15:00,Goodison Park,Everton,Brighton,4 - 2
+4,03/10/2020 17:30,Elland Road,Leeds,Man City,1 - 1
+4,03/10/2020 20:00,St. James' Park,Newcastle,Burnley,3 - 1
+4,04/10/2020 12:00,King Power Stadium,Leicester,West Ham,0 - 3
+4,04/10/2020 12:00,St. Mary's Stadium,Southampton,West Brom,2 - 0
+4,04/10/2020 14:00,Emirates Stadium,Arsenal,Sheffield Utd,2 - 1
+4,04/10/2020 14:00,Molineux Stadium,Wolves,Fulham,1 - 0
+4,04/10/2020 16:30,Old Trafford,Man Utd,Spurs,1 - 6
+4,04/10/2020 19:15,Villa Park,Aston Villa,Liverpool,7 - 2
+5,17/10/2020 12:30,Goodison Park,Everton,Liverpool,
 5,17/10/2020 15:00,Stamford Bridge,Chelsea,Southampton,
-5,17/10/2020 15:00,Selhurst Park,Crystal Palace,Brighton,
-5,17/10/2020 15:00,Goodison Park,Everton,Liverpool,
-5,17/10/2020 15:00,Elland Road,Leeds,Wolves,
-5,17/10/2020 15:00,King Power Stadium,Leicester,Aston Villa,
-5,17/10/2020 15:00,Etihad Stadium,Man City,Arsenal,
-5,17/10/2020 15:00,St. James' Park,Newcastle,Man Utd,
-5,17/10/2020 15:00,Bramall Lane,Sheffield Utd,Fulham,
-5,17/10/2020 15:00,Tottenham Hotspur Stadium,Spurs,West Ham,
-5,17/10/2020 15:00,The Hawthorns,West Brom,Burnley,
-6,24/10/2020 15:00,Emirates Stadium,Arsenal,Leicester,
-6,24/10/2020 15:00,Villa Park,Aston Villa,Leeds,
-6,24/10/2020 15:00,Amex Stadium,Brighton,West Brom,
+5,17/10/2020 17:30,Etihad Stadium,Man City,Arsenal,
+5,17/10/2020 20:00,St. James' Park,Newcastle,Man Utd,
+5,18/10/2020 12:00,Bramall Lane,Sheffield Utd,Fulham,
+5,18/10/2020 14:00,Selhurst Park,Crystal Palace,Brighton,
+5,18/10/2020 16:30,Tottenham Hotspur Stadium,Spurs,West Ham,
+5,18/10/2020 19:15,King Power Stadium,Leicester,Aston Villa,
+5,19/10/2020 17:30,The Hawthorns,West Brom,Burnley,
+5,19/10/2020 20:00,Elland Road,Leeds,Wolves,
+6,23/10/2020 20:00,Villa Park,Aston Villa,Leeds,
+6,24/10/2020 12:30,London Stadium,West Ham,Man City,
 6,24/10/2020 15:00,Turf Moor,Burnley,Spurs,
 6,24/10/2020 15:00,Craven Cottage,Fulham,Crystal Palace,
-6,24/10/2020 15:00,Anfield,Liverpool,Sheffield Utd,
-6,24/10/2020 15:00,Old Trafford,Man Utd,Chelsea,
-6,24/10/2020 15:00,St. Mary's Stadium,Southampton,Everton,
-6,24/10/2020 15:00,London Stadium,West Ham,Man City,
 6,24/10/2020 15:00,Molineux Stadium,Wolves,Newcastle,
-7,31/10/2020 15:00,Villa Park,Aston Villa,Southampton,
+6,24/10/2020 17:30,Old Trafford,Man Utd,Chelsea,
+6,24/10/2020 20:00,Anfield,Liverpool,Sheffield Utd,
+6,25/10/2020 14:00,St. Mary's Stadium,Southampton,Everton,
+6,25/10/2020 19:15,Emirates Stadium,Arsenal,Leicester,
+6,26/10/2020 17:30,Amex Stadium,Brighton,West Brom,
+7,30/10/2020 20:00,Molineux Stadium,Wolves,Crystal Palace,
 7,31/10/2020 15:00,Turf Moor,Burnley,Chelsea,
-7,31/10/2020 15:00,Craven Cottage,Fulham,West Brom,
 7,31/10/2020 15:00,Elland Road,Leeds,Leicester,
 7,31/10/2020 15:00,Anfield,Liverpool,West Ham,
 7,31/10/2020 15:00,Old Trafford,Man Utd,Arsenal,
 7,31/10/2020 15:00,St. James' Park,Newcastle,Everton,
 7,31/10/2020 15:00,Bramall Lane,Sheffield Utd,Man City,
-7,31/10/2020 15:00,Tottenham Hotspur Stadium,Spurs,Brighton,
-7,31/10/2020 15:00,Molineux Stadium,Wolves,Crystal Palace,
+7,01/11/2020 12:00,Villa Park,Aston Villa,Southampton,
+7,01/11/2020 19:15,Tottenham Hotspur Stadium,Spurs,Brighton,
+7,02/11/2020 17:30,Craven Cottage,Fulham,West Brom,
 8,07/11/2020 15:00,Emirates Stadium,Arsenal,Aston Villa,
 8,07/11/2020 15:00,Amex Stadium,Brighton,Burnley,
 8,07/11/2020 15:00,Stamford Bridge,Chelsea,Sheffield Utd,
@@ -109,16 +109,16 @@ Round Number,Date,Location,Home Team,Away Team,Result
 11,05/12/2020 15:00,Tottenham Hotspur Stadium,Spurs,Arsenal,
 11,05/12/2020 15:00,The Hawthorns,West Brom,Crystal Palace,
 11,05/12/2020 15:00,London Stadium,West Ham,Man Utd,
-12,12/12/2020 15:00,Emirates Stadium,Arsenal,Burnley,
 12,12/12/2020 15:00,Selhurst Park,Crystal Palace,Spurs,
 12,12/12/2020 15:00,Goodison Park,Everton,Chelsea,
 12,12/12/2020 15:00,Craven Cottage,Fulham,Liverpool,
 12,12/12/2020 15:00,Elland Road,Leeds,West Ham,
-12,12/12/2020 15:00,King Power Stadium,Leicester,Brighton,
 12,12/12/2020 15:00,Old Trafford,Man Utd,Man City,
 12,12/12/2020 15:00,St. James' Park,Newcastle,West Brom,
 12,12/12/2020 15:00,St. Mary's Stadium,Southampton,Sheffield Utd,
 12,12/12/2020 15:00,Molineux Stadium,Wolves,Aston Villa,
+12,13/12/2020 15:00,Emirates Stadium,Arsenal,Burnley,
+12,13/12/2020 15:00,King Power Stadium,Leicester,Brighton,
 13,15/12/2020 19:45,Emirates Stadium,Arsenal,Southampton,
 13,15/12/2020 19:45,Villa Park,Aston Villa,Burnley,
 13,15/12/2020 19:45,Craven Cottage,Fulham,Brighton,
