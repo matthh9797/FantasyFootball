@@ -100,7 +100,11 @@ homeGoalMatrix <- sapply(team_list$teams_2021, function(HomeTeam) sapply(team_li
 awayGoalMatrix <- sapply(team_list$teams_2021, function(AwayTeam) sapply(team_list$teams_2021, function(HomeTeam) predict(HomeTeam, AwayTeam, GoalMatrix)[[2]]))
 expectedGoalMatrix <- rbind(homeGoalMatrix, awayGoalMatrix)
 colnames(expectedGoalMatrix) <- team_list$teams_2021
-scaledGoalMatrix <- scale(expectedGoalMatrix)
+# use min_max method to normalise data
+min_max_norm <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+scaledGoalMatrix <- apply(expectedGoalMatrix, 2, min_max_norm)
 rownames(expectedGoalMatrix) <- c(sapply(team_list$teams_2021, function(x) paste0(x, "@Home")), sapply(team_list$teams_2021, function(x) paste0(x, "@Away")))
 rownames(scaledGoalMatrix) <- c(sapply(team_list$teams_2021, function(x) paste0(x, "@Home")), sapply(team_list$teams_2021, function(x) paste0(x, "@Away")))
 rm(homeGoalMatrix, awayGoalMatrix, predict)
