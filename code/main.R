@@ -1,8 +1,17 @@
 ## Fantasy Football Project
 
-## 1. Downloading and reading the data into R
-## New data download: (https://www.kaggle.com/irkaal/english-premier-league-results)
+## The aim of this project is to create an accurate predictor of the expected goals scored by each team in the 
+## Premier League for each fixture to create attack and defensive metrics for a range of games
 
+# PART 1 - Predict the goals scored and conceded by each team in the Premier League (Model 1)
+# PART 2 - Predict the expected goals in each match in the Premier League using Model 1 (Model 2)
+# PART 3 - Create attacking and defending metrics for a team over a date range using Model 2
+
+# PART 1 - PREDICT OVERALL GOALS SCORED & CONCEDED
+
+## 1. Summary statistics 
+
+## data source: (https://www.kaggle.com/irkaal/english-premier-league-results)
 # a. results is a dataframe containing all of the resuts from the 2005/2006 premier league season to
 # the 2019/2020 season
 results <- read.csv("data/results1993-2020/results.csv")
@@ -18,38 +27,44 @@ source("code/summaryGoals.R")
 summaryGoals <- summaryGoals(results)
 # save(summaryGoals, file = "data/summaryGoals.R")
 
-# c. team_list is a list object containing factor vectors which contain the teams for each Premier League
+# b. overall_goals is a function that inputs a results dataframe and returns a dataframe containing the 
+# goals scored by each team in each season
+source("code/dataframes/overall_goals.R")
+overall_goals <- overall_goals(results)
+# rearrange the columns of the dataframes
+overall_goals <- overall_goals[ , c(1,2,7,3,5,8,4,6)]
+
+# c. average_goals is a function that inputs the overall goals dataframe and returns a dataframe containing the 
+# goals per game version of overall_goals with home:away ratios for goals scored and conceded
+source("code/dataframes/average_goals.R")
+average_goals <- average_goals(overall_goals)
+
+# d. team_list is a list object containing factor vectors which contain the teams for each Premier League
 # season
 team_list <- list(
-  "teams_0506" = droplevels(filter(summaryGoals, Season == "2005-06")$Team[1:20]),
-  "teams_0607" = droplevels(filter(summaryGoals, Season == "2006-07")$Team[1:20]),
-  "teams_0708" = droplevels(filter(summaryGoals, Season == "2007-08")$Team[1:20]),
-  "teams_0809" = droplevels(filter(summaryGoals, Season == "2008-09")$Team[1:20]),
-  "teams_0910" = droplevels(filter(summaryGoals, Season == "2009-10")$Team[1:20]),
-  "teams_1011" = droplevels(filter(summaryGoals, Season == "2010-11")$Team[1:20]),
-  "teams_1112" = droplevels(filter(summaryGoals, Season == "2011-12")$Team[1:20]),
-  "teams_1213" = droplevels(filter(summaryGoals, Season == "2012-13")$Team[1:20]),
-  "teams_1314" = droplevels(filter(summaryGoals, Season == "2013-14")$Team[1:20]),
-  "teams_1415" = droplevels(filter(summaryGoals, Season == "2014-15")$Team[1:20]),
-  "teams_1516" = droplevels(filter(summaryGoals, Season == "2015-16")$Team[1:20]),
-  "teams_1617" = droplevels(filter(summaryGoals, Season == "2016-17")$Team[1:20]),
-  "teams_1718" = droplevels(filter(summaryGoals, Season == "2017-18")$Team[1:20]),
-  "teams_1819" = droplevels(filter(summaryGoals, Season == "2018-19")$Team[1:20]),
-  "teams_1920" = droplevels(filter(summaryGoals, Season == "2019-20")$Team[1:20])
+  "teams_0506" = droplevels(filter(overall_goals, Season == "2005-06")$Team[1:20]),
+  "teams_0607" = droplevels(filter(overall_goals, Season == "2006-07")$Team[1:20]),
+  "teams_0708" = droplevels(filter(overall_goals, Season == "2007-08")$Team[1:20]),
+  "teams_0809" = droplevels(filter(overall_goals, Season == "2008-09")$Team[1:20]),
+  "teams_0910" = droplevels(filter(overall_goals, Season == "2009-10")$Team[1:20]),
+  "teams_1011" = droplevels(filter(overall_goals, Season == "2010-11")$Team[1:20]),
+  "teams_1112" = droplevels(filter(overall_goals, Season == "2011-12")$Team[1:20]),
+  "teams_1213" = droplevels(filter(overall_goals, Season == "2012-13")$Team[1:20]),
+  "teams_1314" = droplevels(filter(overall_goals, Season == "2013-14")$Team[1:20]),
+  "teams_1415" = droplevels(filter(overall_goals, Season == "2014-15")$Team[1:20]),
+  "teams_1516" = droplevels(filter(overall_goals, Season == "2015-16")$Team[1:20]),
+  "teams_1617" = droplevels(filter(overall_goals, Season == "2016-17")$Team[1:20]),
+  "teams_1718" = droplevels(filter(overall_goals, Season == "2017-18")$Team[1:20]),
+  "teams_1819" = droplevels(filter(overall_goals, Season == "2018-19")$Team[1:20]),
+  "teams_1920" = droplevels(filter(overall_goals, Season == "2019-20")$Team[1:20])
 )
-# save(team_list, file = "data/team_list.R")
-# Source the data objects from memory
-source("data/results.R")
-source("data/summaryGoals.R")
-source("data/team_list.R")
 
-# 2. Use EDA to create a prediction of how many goals each team will concede and score home and away in the 2020/2021
-# season
+# 2. Model - A model which predicts the overall_goals dataframe for the next season
 
-## a. Add the list of fixtures 
+## a. Fixture List 2020-21
 fixtures <- read.csv("data/fixtures/epl-2020-GMTStandardTime.csv")
 fixtures <- transform(fixtures, Date = as.Date(Date, format = "%d/%m/%Y"))
-## b. pre-process teams from 2020/2021 to match the format of the results data source
+## pre-process teams from 2020/2021 to match the format of the results data source
 fixtures <- transform(fixtures, Home.Team = as.character(Home.Team), Away.Team = as.character(Away.Team))
 fixtures$Home.Team[fixtures$Home.Team == "Man Utd"] <- "Man United"
 fixtures$Home.Team[fixtures$Home.Team == "Sheffield Utd"] <- "Sheffield United"
@@ -60,38 +75,14 @@ fixtures$Away.Team[fixtures$Away.Team == "Spurs"] <- "Tottenham"
 fixtures <- transform(fixtures, Home.Team = as.factor(Home.Team), Away.Team = as.factor(Away.Team))
 # add 2020/2021 teams to the team_list
 team_list$teams_2021 <- sort(unique(fixtures$Home.Team))
-# c. Create goal matrix which is a matrix that predicts the number of home and away goals 
-# scored and conceded by each team
-GoalMatrix <- matrix(ncol = 4, nrow = 20)
-colnames(GoalMatrix) <- c("HomeGoals", "AwayGoals", "HomeConcede", "AwayConcede")
-rownames(GoalMatrix) <- team_list$teams_2021
-# based on eda of 5 seasons graphs found in eda section ...
-GoalMatrix["Arsenal",] <- c(40, 22, 24, 26)
-GoalMatrix["Chelsea",] <- c(35, 40, 16, 40)
-GoalMatrix["Crystal Palace",] <- c(15, 20, 20, 30)
-GoalMatrix["Everton",] <- c(30, 25, 21, 35)
-GoalMatrix["Leicester",] <- c(37, 35, 16, 22)
-GoalMatrix["Liverpool",] <- c(54, 34, 16,18)
-GoalMatrix["Man City",] <- c(57, 45, 13, 20)
-GoalMatrix["Man United",] <- c(44, 25, 15, 18)
-GoalMatrix["Southampton",] <- c(22, 30, 36, 25)
-GoalMatrix["Tottenham",] <- c(38, 16, 26, 26)
-GoalMatrix["West Ham",] <- c(30, 22, 33, 30)
-# based on eda of 2 seasons, graphs found in eda section ...
-GoalMatrix["Brighton",] <- c(20, 30, 19, 28)
-GoalMatrix["Burnley",] <- c(24,20, 25, 30)
-GoalMatrix["Newcastle",] <- c(25, 20, 22, 35)
-# based on last season
-GoalMatrix["Wolves", ] <- c(28,25,20,22)
-GoalMatrix["Aston Villa", ] <- c(22, 20, 30, 35)
-GoalMatrix["Sheffield United", ] <- c(22, 20, 30, 35)
-# guess
-GoalMatrix["Fulham",] <- c(22, 18, 30, 35)
-GoalMatrix["Leeds",] <- c(25, 22, 30, 35)
-GoalMatrix["West Brom",] <- c(22, 18, 30, 35)
+
+# c. overall_goals_predict_2021 - currently I have no model to predict this data frame and have used EDA
+# to predict the dataframe 
+source("code/models/model1_goals_predict.R")
+overall_goals_predict_2021 <- model1_goals_predict(Teams = team_list$teams_2021)
 
 
-## 3. Prediction Model, how many goals will each team score home and away against every other time?
+## PART 2 - PREDICT EXPECTED GOALS IN EACH MATCH
 
 # a. Create a matrix with the expected goals of each team against each other team home and away
 # and a sclaed version which makes the results comparable
@@ -111,7 +102,8 @@ rm(homeGoalMatrix, awayGoalMatrix, predict)
 expectedGoalMatrix <- t(expectedGoalMatrix)
 scaledGoalMatrix <- t(scaledGoalMatrix)
 
-## 4. Permute the rows and columns of the expected goals to be in the same order as the fixtures
+
+## PART 3 - PREDICT ATTACK AND DEFENCE METRICS FOR A DATE RANGE
 
 ## The following code is messy however gives a working goalDF which contains the expected goals
 ## scored by each team against an opponent by date. 
