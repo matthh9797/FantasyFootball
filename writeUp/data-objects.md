@@ -5,15 +5,17 @@
 1. Create a score predictor for teams in the Premier League
 2. Use model to create a web app that displays the team with the best fixtures between a date range 
 
-# Part 1 - Score Predictor 
+# Part 1 - Overall Goal Predictor 
 
 ## Data Objects
 
  - overall_goals (*data.frame*) - The overall goals scored by each team Home, Away and Overall for each season from 2005-06 - 2019-20
  - average_goals (*data.frame*) - The average goals scored and conceded by each team Home and Away each season from 2005-06 - 2019-20
  - overall_goals_predict_2020-21 (*matrix*) - A model that predicts the overall goals scored and conceded by each team in the 2020-21 season
- - expected_goals_2020-21 (*matrix*) - A matrix that uses the overall_goals_predict_2020-21 model to predict the expected goals for each team against each other team home and away
- - scaled_goals_2020-21 (*matrix*) - A matrix containing a the results of the overall_goals_predict_2020-21 model scaled for each team
+
+# Part 2 - Score Predictor 
+- expected_goals_2020-21 (*matrix*) - A matrix that uses the overall_goals_predict_2020-21 model to predict the expected goals for each team against each other team home and away
+- scaled_goals_2020-21 (*matrix*) - A matrix containing a the results of the overall_goals_predict_2020-21 model scaled for each team
 
 ## Problems
 

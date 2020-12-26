@@ -1,0 +1,104 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Fantasy Football
+
+This project will focus on how to use data from the Premier League to make predctions about the coming season. This was motivated by my desire to beat my friends at Sky Fantasy Football in order to make some money. 
+
+The 3 main questions this project will look to answer are 
+
+1. How to predict the number of goals a team will score in a season
+2. How to use the number of goals scored to predict the score in each match 
+3. How to create a metric for attack and defence for each team over a range of dates 
+
+The results of past seasons will be used throughout this project to make predictions.
+```{r include=FALSE}
+results <- read.csv("data/results1993-2020/results.csv")
+# results 2005 - 2020 (15 seasons)
+results <- transform(results, Date = as.Date(Date))
+library(dplyr)
+results <- filter(results, Date > "2005-08-01")
+results$HomeTeam <- droplevels(results$HomeTeam)
+results$AwayTeam <- droplevels(results$AwayTeam)
+```
+
+```{r}
+head(results[,1:10], 3)
+```
+
+The data object overall_goals has been used to summarise the overall number of goals scored by each team by season and average_goals is a data object which summarises the averege goals scored per game and the home:away ratios.
+
+```{r include=FALSE}
+source("code/dataframes/overall_goals.R")
+overall_goals <- overall_goals(results)
+# rearrange the columns of the dataframes
+overall_goals <- overall_goals[ , c(1,2,7,3,5,8,4,6)]
+```
+
+```{r}
+tail(overall_goals[,1:6], 3)
+```
+
+average_goals - summary of goals per game by each team per season with home:away ratios
+
+```{r include=FALSE}
+source("code/dataframes/average_goals.R")
+average_goals <- average_goals(overall_goals)
+```
+
+```{r}
+head(average_goals[,1:6], 3)
+```
+
+
+# Part 1 - Predict Season Goals
+
+Is it possible to predict the number of goals a team will score in the Premier league before the season has started?
+
+This section will look at machine learning and regression techniques which can be used to predict the overall number of goals in the next season. 
+
+## Data Preperation 
+
+In order to implement a machine learning approach the average_goals data frame has been manipulated to be shaped as a matrix which has the goals scored in the 4 previous seasons as variables and the label is the average number of goals scored in the next season.
+
+goals_per_season is a data frame containing the average goals in the last 4 seasons by a team and will be used in order to predict the average goals scored in the current season.
+
+```{r include=FALSE}
+# filter for the last 5 seasons and select just the overall goals 
+goals_per_season <- filter(average_goals, Season %in% c("2015-16", "2016-17", "2017-18", "2018-19", "2019-20"))
+goals_per_season <- select(goals_per_season, 1:3)
+# reshape the dataframe to mkae the seasons the column headers 
+library(reshape2)
+goals_per_season <- reshape(goals_per_season, idvar = "Team", v.names = "overall_goal", timevar = "Season", direction = "wide")
+goals_per_season <- na.omit(goals_per_season)
+colnames(goals_per_season) <- c("Team", "Season-4", "Season-3", "Season-2", "Season-1", "Season(y)")
+Team <- goals_per_season$Team
+goals_per_season <- as.matrix(goals_per_season[,2:6])
+rownames(goals_per_season) <- Team
+```
+
+```{r}
+head(goals_per_season, 3)
+```
+ 
+For now the data prepertion only includes the average goals scored in previous seasons. It is clear that more variables are required to make an accurate prediction such as league finish, manager, transfers etc. 
+
+## Exploratory Graphs
+
+## Model
+
+For now I do no have a model to predict the goals scored in the coming season
+
+## Future Models
+
+The first implementation of this project will not consider any factors as the season goes on and hence will aim to predict all results in each match before the season has started. I would like to add in the future factors that consider team lineups and focus on weather the premier league scores are a stochastics process, hence, do certain teams have a pattern in form.
+
+In future versions of the model I would like to include categorical data such as: transfers made, weather, manager, formation, lineup ...
+
+
+
+
+
+

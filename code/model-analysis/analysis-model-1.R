@@ -28,6 +28,11 @@ dplyr::filter(goalDF, Team == "Newcastle", (Week >= 5) & (Week <= 10))
 ## 1. Week 5 - Week 12
 summaryGoalDF(goalDF, From = 5, To = 12)
 
+## 2. Week 10 - 15
+summaryGoalDF(goalDF, From = 10, To = 15)
+# Man City have the best fixtures
+dplyr::filter(goalDF, Team == "Man City", (Week >= 10) & (Week <= 15))
+# all scaled goals are positive
 
 
 
