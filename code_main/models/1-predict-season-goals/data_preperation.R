@@ -1,3 +1,4 @@
+home <- home[,2:21]
 ## Data preperation for machine learning model to predict the goals scored by each team in 
 ## the Premier League
 

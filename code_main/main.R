@@ -106,12 +106,12 @@ expected_goals_0506_home <- data.frame(Season = "2005-06", HomeTeam = rep(team_l
 
 # a. Create a matrix with the expected goals of each team against each other team home and away
 # and a sclaed version which makes the results comparable
-source("code/models/model2/model2_score_predict.R")
+source("code/models/2-expected-score/expected-score.R")
 # append expected goals scored to the fixture dataframe using model 2
 hg <- abs_goals_2021$home_goal; ag <- abs_goals_2021$away_goal; hc <- abs_goals_2021$home_concede; ac <- abs_goals_2021$away_concede
-exp.hg <- apply(df, 1, function(x){expected_score(HomeTeam = x[[1]], AwayTeam = x[[2]], HomeGoal = hg, AwayGoal = ag, 
+exp.hg <- apply(df, 1, function(x){exp_score(HomeTeam = x[[1]], AwayTeam = x[[2]], HomeGoal = hg, AwayGoal = ag, 
                                                   HomeConcede = hc, AwayConcede = ac, TeamList = TeamList)})[1,]
-exp.ag <- apply(df, 1, function(x){expected_score(HomeTeam = x[[1]], AwayTeam = x[[2]], HomeGoal = hg, AwayGoal = ag, 
+exp.ag <- apply(df, 1, function(x){exp_score(HomeTeam = x[[1]], AwayTeam = x[[2]], HomeGoal = hg, AwayGoal = ag, 
                                                   HomeConcede = hc, AwayConcede = ac, TeamList = TeamList)})[2,]
 fixtures <- transform(fixtures, exp.FTHG = exp.hg, exp.FTAG = exp.ag)
 # add in weights based on this season

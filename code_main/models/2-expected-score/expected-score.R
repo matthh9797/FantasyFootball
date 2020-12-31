@@ -1,5 +1,5 @@
 # Home and Away Team must be specified as a numeric value for the TeamList which is a factor variable
-expected_score <- function(HomeTeam, AwayTeam, HomeGoal, AwayGoal, HomeConcede, AwayConcede, TeamList = NA) {
+exp_score <- function(HomeTeam, AwayTeam, HomeGoal, AwayGoal, HomeConcede, AwayConcede, TeamList = NA) {
   ## This is a function that takes 6 vector arguements of the same length which are a list of 
   ## home and away teams and the goals scored/conceded by each. Then calculates and expected
   ## goal for each team against each opponent.

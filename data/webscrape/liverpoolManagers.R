@@ -17,10 +17,10 @@ nm1[!lg] <- paste(nm1[!lg], nm2[!lg], sep = ".")
 tb <- tb[2:dim(tb)[1],]
 names(tb) <- nm1
 # subset out the date columns and convert to date type
-from <- tb$From
-to <- tb$To
+from <- as.Date(tb$From, "%d %B %Y")
+to <- as.Date(tb$To, "%d %B %Y")
 man_tb <- data.frame(Team = "Liverpool", Manager = tb$Name, From = from, TO = to)
-
+rm(tb, tbs, webpage, from, lg, nm1, nm2, to, url)
 
 
 
